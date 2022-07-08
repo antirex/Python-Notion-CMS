@@ -1,14 +1,19 @@
 import uvicorn
 from fastapi import FastAPI
-from .config import settings 
+from config import settings
+
+from endpoints.routers import router as thought_experiments_router
+
 
 app = FastAPI()
 
-@app.get("/", tags=["Health test"])
-def read_root():
-    return {"message": "Healthy"}
 
-app.include_router(notion_fetch_router, tags=["notion"], prefix="/api")
+@app.get("/", tags=["Endpoint test"])
+def read_root():
+    return {"message": "welcome to notion CMS backend"}
+
+
+app.include_router(thought_experiments_router, tags=["notion"], prefix="/api")
 
 if __name__ == "__main__":
     uvicorn.run(

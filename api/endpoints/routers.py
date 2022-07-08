@@ -1,14 +1,21 @@
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter
+from app.ThoughtExperiments.thought_experiments_handler import ThoughtExperimentsHandler
 
-#router object for handling api routes
+
+# router object for handling api routes
 router = APIRouter()
 
-@router.get("/", response_description="List all posts")
-async def list_posts(request: Request):
-    pass
+
+@router.get("/thought-experiments", response_description="List all posts")
+async def list_posts():
+    thought_experiments = await ThoughtExperimentsHandler().get_articles()
+    return thought_experiments
 
 
-@router.get("/{name}", response_description="List post based on name")
+@router.get(
+    "/thought-experiments/{name}",
+    response_description="List thought experiment based on name",
+)
 async def show_named_post():
     pass
 
@@ -16,5 +23,3 @@ async def show_named_post():
 @router.get("/{id}", response_description="Get a single post")
 async def show_post(id: str):
     pass
-
-
